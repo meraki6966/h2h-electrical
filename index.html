@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="H2H Electrical — Licensed family-owned electrician serving residential, commercial, and generator installation in Texas. Free estimates. Call 409-739-2944." />
+  <meta name="theme-color" content="#ffffff" />
+  <title>H2H Electrical | Licensed Electrician | Free Estimates</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- LocalBusiness Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Electrician",
+    "name": "H2H Electrical",
+    "description": "Family-owned electrical contractor providing residential, commercial, and generator installation services in Texas.",
+    "telephone": "409-739-2944",
+    "url": "https://www.h2helectrical.com",
+    "priceRange": "$$",
+    "areaServed": ["TX"],
+    "serviceType": ["Residential Electrical","Commercial Electrical","Generator Installation","House Service Hookup","Repairs and Remodels"],
+    "foundingDate": "2025"
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --teal:      #1ba8a8;
+      --teal-dark: #148080;
+      --teal-lt:   #e8f8f8;
+      --yellow:    #f5c800;
+      --yellow-lt: #fff6cc;
+      --yellow-dk: #d4aa00;
+      --white:     #ffffff;
+      --off-white: #f8fafb;
+      --charcoal:  #1e2a2a;
+      --mid:       #5a6e6e;
+      --border:    #d4e8e8;
+      --shadow:    0 4px 24px rgba(27,168,168,0.10);
+      --shadow-lg: 0 16px 48px rgba(27,168,168,0.18);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--white);
+      color: var(--charcoal);
+      overflow-x: hidden;
+    }
+
+    /* ── HEADER ── */
+    header {
+      position: sticky; top: 0; z-index: 200;
+      background: var(--white);
+      border-bottom: 2px solid var(--border);
+      box-shadow: 0 2px 16px rgba(27,168,168,0.08);
+    }
+    .header-inner {
+      max-width: 1200px; margin: 0 auto;
+      padding: 0.85rem 1.5rem;
+      display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+    }
+    .logo-wrap { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
+    .logo-wrap img { height: 60px; width: auto; object-fit: contain; }
+    .logo-text {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem; letter-spacing: 0.08em; color: var(--teal); line-height: 1;
+    }
+    nav { display: flex; gap: 2rem; align-items: center; }
+    nav a {
+      font-size: 0.88rem; font-weight: 600; color: var(--charcoal);
+      text-decoration: none; letter-spacing: 0.04em; text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    nav a:hover { color: var(--teal); }
+    .cta-call {
+      background: var(--yellow); color: var(--charcoal);
+      padding: 0.75rem 1.4rem; border-radius: 8px;
+      font-weight: 700; font-size: 0.88rem; text-decoration: none;
+      letter-spacing: 0.04em; text-transform: uppercase; white-space: nowrap;
+      transition: all 0.25s; border: 2px solid var(--yellow);
+    }
+    .cta-call:hover {
+      background: var(--yellow-dk); border-color: var(--yellow-dk);
+      transform: translateY(-2px); box-shadow: 0 8px 20px rgba(245,200,0,0.35);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, var(--teal-dark) 0%, var(--teal) 60%, #23c4c4 100%);
+      position: relative; overflow: hidden;
+    }
+    /* Lightning bolt watermark */
+    .hero::before {
+      content: '⚡';
+      position: absolute; right: -2rem; top: -2rem;
+      font-size: 28rem; opacity: 0.04; line-height: 1;
+      pointer-events: none; user-select: none;
+    }
+    /* Bottom diagonal cut */
+    .hero::after {
+      content: ''; position: absolute;
+      bottom: -2px; left: 0; right: 0; height: 90px;
+      background: var(--white); clip-path: polygon(0 100%, 100% 100%, 100% 0);
+    }
+    .hero-inner {
+      max-width: 1200px; margin: 0 auto;
+      padding: 5.5rem 1.5rem 8rem;
+      position: relative; z-index: 1;
+      display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 3rem; align-items: center;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: rgba(245,200,0,0.2); border: 1px solid rgba(245,200,0,0.5);
+      color: var(--yellow); font-size: 0.76rem; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      padding: 0.4rem 0.9rem; border-radius: 100px; margin-bottom: 1.5rem;
+      animation: fadeUp 0.6s ease-out both;
+    }
+    .hero-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3rem, 6vw, 5.2rem); line-height: 0.95;
+      letter-spacing: 0.03em; color: var(--white); margin-bottom: 1.25rem;
+      animation: fadeUp 0.7s ease-out 0.1s both;
+    }
+    .hero-title em { color: var(--yellow); font-style: normal; display: block; }
+    .hero-sub {
+      font-size: 1.1rem; color: rgba(255,255,255,0.80); line-height: 1.75;
+      margin-bottom: 2.5rem; font-weight: 400; max-width: 520px;
+      animation: fadeUp 0.7s ease-out 0.2s both;
+    }
+    .hero-actions {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+      animation: fadeUp 0.7s ease-out 0.3s both;
+    }
+    .btn-yellow {
+      background: var(--yellow); color: var(--charcoal);
+      padding: 1rem 2rem; border-radius: 8px; font-weight: 700; font-size: 1rem;
+      text-decoration: none; letter-spacing: 0.02em; transition: all 0.25s;
+      border: 2px solid var(--yellow);
+    }
+    .btn-yellow:hover {
+      background: var(--yellow-dk); border-color: var(--yellow-dk);
+      transform: translateY(-3px); box-shadow: 0 12px 28px rgba(245,200,0,0.4);
+    }
+    .btn-outline-white {
+      background: transparent; color: var(--white);
+      padding: 1rem 2rem; border-radius: 8px; font-weight: 600; font-size: 1rem;
+      text-decoration: none; letter-spacing: 0.02em;
+      border: 2px solid rgba(255,255,255,0.4); transition: all 0.25s;
+    }
+    .btn-outline-white:hover {
+      border-color: var(--white); background: rgba(255,255,255,0.1); transform: translateY(-3px);
+    }
+
+    /* Hero card */
+    .hero-card {
+      background: var(--white); border-radius: 20px; padding: 2.5rem 2rem;
+      display: flex; flex-direction: column; align-items: center; gap: 1.75rem;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.18);
+      animation: fadeUp 0.8s ease-out 0.25s both;
+    }
+    .hero-card img { width: 180px; height: 180px; object-fit: contain; }
+    .hero-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; width: 100%; }
+    .stat-box {
+      background: var(--teal-lt); border-radius: 10px; padding: 1rem 0.75rem;
+      text-align: center; border: 1.5px solid var(--border);
+    }
+    .stat-box strong {
+      display: block; font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem; color: var(--teal); letter-spacing: 0.06em; line-height: 1;
+    }
+    .stat-box span {
+      font-size: 0.72rem; color: var(--mid); font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.1em;
+    }
+
+    /* ── YELLOW TRUST BAR ── */
+    .trust-bar { background: var(--yellow); padding: 0.9rem 1.5rem; }
+    .trust-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; justify-content: center; gap: 2.5rem; flex-wrap: wrap;
+    }
+    .trust-item {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-size: 0.82rem; font-weight: 700; color: var(--charcoal);
+      text-transform: uppercase; letter-spacing: 0.08em;
+    }
+
+    /* ── SERVICES ── */
+    .services { background: var(--off-white); padding: 5.5rem 1.5rem; }
+    .services-inner { max-width: 1200px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.76rem; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--teal); margin-bottom: 0.5rem;
+    }
+    .section-heading {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.5rem, 4vw, 3.5rem); color: var(--charcoal);
+      letter-spacing: 0.04em; line-height: 1; margin-bottom: 0.75rem;
+    }
+    .section-sub {
+      color: var(--mid); font-size: 1rem; max-width: 520px;
+      line-height: 1.7; margin-bottom: 3rem;
+    }
+    .services-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+    }
+    .service-card {
+      background: var(--white); border-radius: 14px; padding: 2rem 1.75rem;
+      border: 1.5px solid var(--border); transition: all 0.3s ease;
+      position: relative; overflow: hidden;
+    }
+    .service-card::after {
+      content: ''; position: absolute;
+      bottom: 0; left: 0; right: 0; height: 4px;
+      background: linear-gradient(90deg, var(--teal), var(--yellow));
+      transform: scaleX(0); transition: transform 0.3s ease; transform-origin: left;
+    }
+    .service-card:hover {
+      border-color: var(--teal); transform: translateY(-6px); box-shadow: var(--shadow-lg);
+    }
+    .service-card:hover::after { transform: scaleX(1); }
+    .service-icon-wrap {
+      width: 54px; height: 54px;
+      background: var(--teal-lt); border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem; margin-bottom: 1.25rem;
+      border: 1.5px solid var(--border);
+    }
+    .service-card h3 {
+      font-family: 'Bebas Neue', sans-serif; font-size: 1.45rem;
+      color: var(--charcoal); letter-spacing: 0.05em; margin-bottom: 0.6rem;
+    }
+    .service-card p { font-size: 0.92rem; color: var(--mid); line-height: 1.65; }
+
+    /* ── ABOUT ── */
+    .about {
+      background: linear-gradient(135deg, var(--teal-dark) 0%, var(--teal) 100%);
+      position: relative; overflow: hidden;
+    }
+    .about::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 90px;
+      background: var(--off-white); clip-path: polygon(0 0, 100% 0, 0 100%);
+    }
+    .about::after {
+      content: ''; position: absolute; bottom: -2px; left: 0; right: 0; height: 90px;
+      background: var(--white); clip-path: polygon(0 100%, 100% 100%, 0 0);
+    }
+    .about-inner {
+      max-width: 1200px; margin: 0 auto;
+      padding: 7rem 1.5rem 7rem;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+      position: relative; z-index: 1;
+    }
+    .about-left .section-heading { color: var(--white); }
+    .about-left .section-label { color: var(--yellow); }
+    .about-left p { color: rgba(255,255,255,0.78); font-size: 1rem; line-height: 1.8; margin-bottom: 1.25rem; }
+    .about-right {
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.2); border-radius: 16px; padding: 2.5rem;
+      backdrop-filter: blur(8px);
+    }
+    .value-item {
+      display: flex; gap: 1rem; margin-bottom: 1.75rem;
+      padding-bottom: 1.75rem; border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .value-item:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+    .value-icon { font-size: 1.5rem; flex-shrink: 0; margin-top: 0.1rem; }
+    .value-item h4 {
+      font-family: 'Bebas Neue', sans-serif; font-size: 1.15rem;
+      letter-spacing: 0.06em; color: var(--yellow); margin-bottom: 0.3rem;
+    }
+    .value-item p { font-size: 0.9rem; color: rgba(255,255,255,0.65); line-height: 1.6; }
+
+    /* ── CONTACT ── */
+    .contact { padding: 5.5rem 1.5rem; background: var(--white); }
+    .contact-inner { max-width: 1200px; margin: 0 auto; }
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1.4fr;
+      background: var(--white); border-radius: 20px; overflow: hidden;
+      box-shadow: var(--shadow-lg); border: 1.5px solid var(--border); margin-top: 2rem;
+    }
+    .contact-left {
+      background: linear-gradient(160deg, var(--teal-dark), var(--teal));
+      padding: 3rem 2.5rem;
+      display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .contact-left .section-heading { color: var(--white); font-size: 2.4rem; margin-bottom: 0; }
+    .contact-left .section-label { color: var(--yellow); }
+    .contact-detail { margin-top: 2.5rem; display: flex; flex-direction: column; gap: 1.75rem; }
+    .contact-detail-item strong {
+      display: block; font-size: 0.73rem; text-transform: uppercase;
+      letter-spacing: 0.14em; color: var(--yellow); margin-bottom: 0.3rem;
+    }
+    .contact-detail-item a, .contact-detail-item p {
+      font-size: 1rem; color: rgba(255,255,255,0.82); text-decoration: none; line-height: 1.6;
+    }
+    .contact-detail-item a:hover { color: var(--yellow); }
+    .contact-right { padding: 3rem 2.5rem; }
+    .contact-right h3 {
+      font-family: 'Bebas Neue', sans-serif; font-size: 2rem;
+      letter-spacing: 0.05em; color: var(--charcoal); margin-bottom: 1.75rem;
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1rem; }
+    .form-group label {
+      font-size: 0.76rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.1em; color: var(--charcoal);
+    }
+    .form-group input, .form-group select, .form-group textarea {
+      background: var(--off-white); border: 1.5px solid var(--border);
+      color: var(--charcoal); padding: 0.8rem 1rem; border-radius: 8px;
+      font-family: 'DM Sans', sans-serif; font-size: 0.95rem; outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      border-color: var(--teal); box-shadow: 0 0 0 3px rgba(27,168,168,0.15);
+    }
+    .form-group textarea { resize: vertical; min-height: 110px; }
+    .form-submit {
+      width: 100%; background: var(--teal); color: var(--white);
+      padding: 1rem; border-radius: 8px; font-family: 'DM Sans', sans-serif;
+      font-weight: 700; font-size: 1rem; letter-spacing: 0.06em;
+      text-transform: uppercase; border: none; cursor: pointer; margin-top: 0.5rem;
+      transition: all 0.25s;
+    }
+    .form-submit:hover {
+      background: var(--teal-dark); transform: translateY(-2px);
+      box-shadow: 0 10px 24px rgba(27,168,168,0.3);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--charcoal); padding: 2rem 1.5rem;
+      text-align: center; color: rgba(255,255,255,0.4); font-size: 0.85rem;
+    }
+    footer a { color: var(--yellow); text-decoration: none; }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { display: none; }
+      .hero-inner { grid-template-columns: 1fr; padding: 3.5rem 1.25rem 6rem; text-align: center; }
+      .hero-sub { margin-left: auto; margin-right: auto; }
+      .hero-actions { justify-content: center; }
+      .hero-card { max-width: 360px; margin: 0 auto; }
+      .services-grid { grid-template-columns: 1fr 1fr; }
+      .about-inner { grid-template-columns: 1fr; padding: 5rem 1.25rem; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .contact-left { padding: 2.5rem 1.5rem; }
+      .contact-right { padding: 2rem 1.5rem; }
+      .form-row { grid-template-columns: 1fr; }
+      .trust-inner { gap: 1.25rem; }
+    }
+    @media (max-width: 600px) {
+      .services-grid { grid-template-columns: 1fr; }
+      .cta-call { font-size: 0.8rem; padding: 0.65rem 1rem; }
+      .hero-stats { grid-template-columns: 1fr 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important; transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-inner">
+      <a href="/" class="logo-wrap">
+        <img src="logo.png" alt="H2H Electrical Logo" />
+        <span class="logo-text">H2H Electrical</span>
+      </a>
+      <nav>
+        <a href="#services">Services</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <a href="tel:4097392944" class="cta-call">⚡ (409) 739-2944</a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <div class="hero-badge">⚡ Licensed &amp; Insured · Est. 2025</div>
+        <h1 class="hero-title">
+          Power Your<br/>
+          <em>Home &amp; Business</em>
+          The Right Way
+        </h1>
+        <p class="hero-sub">
+          Family-owned electrical contractor serving residential, commercial, and generator needs across Texas. Free estimates. Honest pricing. Built on trust.
+        </p>
+        <div class="hero-actions">
+          <a href="tel:4097392944" class="btn-yellow">⚡ Call for Free Estimate</a>
+          <a href="#contact" class="btn-outline-white">Request a Quote</a>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <img src="logo.png" alt="H2H Electrical" />
+        <div class="hero-stats">
+          <div class="stat-box"><strong>100%</strong><span>Licensed</span></div>
+          <div class="stat-box"><strong>FREE</strong><span>Estimates</span></div>
+          <div class="stat-box"><strong>24/7</strong><span>Emergency</span></div>
+          <div class="stat-box"><strong>5★</strong><span>Service</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST BAR -->
+  <div class="trust-bar">
+    <div class="trust-inner">
+      <div class="trust-item">✔ Licensed &amp; Insured</div>
+      <div class="trust-item">✔ Free Estimates</div>
+      <div class="trust-item">✔ Family Owned</div>
+      <div class="trust-item">✔ 24/7 Emergency Service</div>
+      <div class="trust-item">✔ Transparent Pricing</div>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <section class="services" id="services">
+    <div class="services-inner">
+      <div class="section-label">What We Do</div>
+      <h2 class="section-heading">Our Services</h2>
+      <p class="section-sub">From residential wiring to commercial panel upgrades and emergency service — we handle it all with precision and care.</p>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon-wrap">🏠</div>
+          <h3>Residential</h3>
+          <p>Electrical installations, repairs, upgrades, and rewiring for homes. Expert troubleshooting and safety compliance every time.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon-wrap">🏢</div>
+          <h3>Commercial</h3>
+          <p>Comprehensive electrical solutions for businesses. Panel installations, maintenance, and industrial-grade systems you can rely on.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon-wrap">⚡</div>
+          <h3>Generator Installation</h3>
+          <p>Backup power solutions for homes and businesses. Professional installation, testing, and ongoing maintenance.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon-wrap">🔌</div>
+          <h3>House Service Hookup</h3>
+          <p>Complete electrical service connections and upgrades for new construction, additions, and major renovations.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon-wrap">🔧</div>
+          <h3>Repairs &amp; Remodels</h3>
+          <p>Expert diagnostics and electrical repairs. Full support for renovation and remodeling projects of any size.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon-wrap">🚨</div>
+          <h3>Emergency Service</h3>
+          <p>Electrical emergencies don't wait. Fast, reliable response available around the clock when you need it most.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="about-inner">
+      <div class="about-left">
+        <div class="section-label">Our Story</div>
+        <h2 class="section-heading">Built on Family.<br/>Driven by Trust.</h2>
+        <p>H2H Electrical is a family-owned company founded with the support of my wife and driven by a desire to build something lasting for our children. We treat every customer like an extension of our own home.</p>
+        <p>We're not just contractors. We're neighbors. We hold ourselves to the highest standard because your safety and trust are everything to us.</p>
+      </div>
+      <div class="about-right">
+        <div class="value-item">
+          <div class="value-icon">🤝</div>
+          <div>
+            <h4>Honest &amp; Transparent</h4>
+            <p>No hidden fees. No surprises. We tell you exactly what it costs before we start any work.</p>
+          </div>
+        </div>
+        <div class="value-item">
+          <div class="value-icon">🛡️</div>
+          <div>
+            <h4>Licensed &amp; Insured</h4>
+            <p>Fully licensed electrical contractor. You're covered from start to finish on every job we take.</p>
+          </div>
+        </div>
+        <div class="value-item">
+          <div class="value-icon">⚡</div>
+          <div>
+            <h4>Fast &amp; Reliable</h4>
+            <p>We show up on time, communicate clearly, and get the job done right the first time.</p>
+          </div>
+        </div>
+        <div class="value-item">
+          <div class="value-icon">❤️</div>
+          <div>
+            <h4>Community First</h4>
+            <p>We're proud to serve our neighbors. Every job we complete powers a home, a family, a dream.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="contact-inner">
+      <div class="section-label">Get In Touch</div>
+      <h2 class="section-heading">Request a Free Estimate</h2>
+      <div class="contact-grid">
+        <div class="contact-left">
+          <div>
+            <div class="section-label">Contact Info</div>
+            <h3 class="section-heading">We're Ready<br/>To Help</h3>
+          </div>
+          <div class="contact-detail">
+            <div class="contact-detail-item">
+              <strong>Phone</strong>
+              <a href="tel:4097392944">(409) 739-2944</a>
+            </div>
+            <div class="contact-detail-item">
+              <strong>Email</strong>
+              <a href="mailto:h2helectric25@gmail.com">h2helectric25@gmail.com</a>
+            </div>
+            <div class="contact-detail-item">
+              <strong>Hours</strong>
+              <p>Mon – Fri: 8:00 AM – 5:00 PM<br/>Sat: By Appointment<br/>24/7 Emergency Service</p>
+            </div>
+            <div class="contact-detail-item">
+              <strong>Service Area</strong>
+              <p>Friendswood, TX &amp; Surrounding Areas</p>
+            </div>
+          </div>
+        </div>
+        <div class="contact-right">
+          <h3>Send Us a Message</h3>
+          <form onsubmit="handleSubmit(event)">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" placeholder="Your full name" required />
+              </div>
+              <div class="form-group">
+                <label for="phone">Phone</label>
+                <input type="tel" id="phone" name="phone" placeholder="(xxx) xxx-xxxx" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="your@email.com" required />
+            </div>
+            <div class="form-group">
+              <label for="service">Service Needed</label>
+              <select id="service" name="service">
+                <option value="">Select a service...</option>
+                <option>Residential Electrical</option>
+                <option>Commercial Electrical</option>
+                <option>Generator Installation</option>
+                <option>House Service Hookup</option>
+                <option>Repairs &amp; Remodels</option>
+                <option>Emergency Service</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" placeholder="Tell us about your project..." required></textarea>
+            </div>
+            <button type="submit" class="form-submit">Send Request →</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2025 H2H Electrical &nbsp;·&nbsp; Licensed &amp; Insured &nbsp;·&nbsp; Friendswood, TX &nbsp;·&nbsp; <a href="tel:4097392944">(409) 739-2944</a></p>
+  </footer>
+
+  <script>
+    function handleSubmit(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('.form-submit');
+      btn.textContent = '✓ Sent! We\'ll be in touch soon.';
+      btn.style.background = '#1a7a3f';
+      btn.disabled = true;
+      setTimeout(() => {
+        btn.textContent = 'Send Request →';
+        btn.style.background = '';
+        btn.disabled = false;
+        e.target.reset();
+      }, 4000);
+    }
+  </script>
+
+</body>
+</html>
