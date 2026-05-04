@@ -83,6 +83,9 @@
       overflow-x: hidden;
     }
 
+    /* Inline SVG icon defaults */
+    .icon { display: inline-block; flex-shrink: 0; vertical-align: middle; }
+
     /* ── HEADER ── */
     header {
       position: sticky; top: 0; z-index: 200;
@@ -116,10 +119,10 @@
       font-family: 'DM Sans', sans-serif; font-weight: 700;
       font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase;
       cursor: pointer; transition: all 0.2s;
-      display: inline-flex; align-items: center; gap: 0.35rem;
+      display: inline-flex; align-items: center; gap: 0.4rem;
     }
     .lang-toggle:hover { background: var(--teal); color: var(--white); }
-    .lang-toggle .lang-flag { font-size: 0.95rem; line-height: 1; }
+    .lang-toggle .icon { width: 14px; height: 14px; }
     .cta-call {
       background: var(--yellow); color: var(--charcoal);
       padding: 0.75rem 1.4rem; border-radius: 8px;
@@ -137,11 +140,11 @@
       background: linear-gradient(135deg, var(--teal-dark) 0%, var(--teal) 60%, #23c4c4 100%);
       position: relative; overflow: hidden;
     }
-    .hero::before {
-      content: '⚡';
-      position: absolute; right: -2rem; top: -2rem;
-      font-size: 28rem; opacity: 0.04; line-height: 1;
-      pointer-events: none; user-select: none;
+    .hero-watermark {
+      position: absolute; right: -3rem; top: -3rem;
+      width: 28rem; height: 28rem;
+      color: var(--white); opacity: 0.05;
+      pointer-events: none; user-select: none; z-index: 0;
     }
     .hero::after {
       content: ''; position: absolute;
@@ -211,13 +214,17 @@
       text-align: center; border: 1.5px solid var(--border);
     }
     .stat-box strong {
-      display: block; font-family: 'Bebas Neue', sans-serif;
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.25rem;
+      font-family: 'Bebas Neue', sans-serif;
       font-size: 2rem; color: var(--teal); letter-spacing: 0.06em; line-height: 1;
     }
     .stat-box span {
+      display: block;
       font-size: 0.72rem; color: var(--mid); font-weight: 600;
       text-transform: uppercase; letter-spacing: 0.1em;
+      margin-top: 0.25rem;
     }
+    .stat-star { width: 1.5rem; height: 1.5rem; color: var(--teal); }
 
     /* ── YELLOW TRUST BAR ── */
     .trust-bar { background: var(--yellow); padding: 0.9rem 1.5rem; }
@@ -226,10 +233,11 @@
       display: flex; justify-content: center; gap: 2.5rem; flex-wrap: wrap;
     }
     .trust-item {
-      display: flex; align-items: center; gap: 0.5rem;
+      display: inline-flex; align-items: center; gap: 0.5rem;
       font-size: 0.82rem; font-weight: 700; color: var(--charcoal);
       text-transform: uppercase; letter-spacing: 0.08em;
     }
+    .trust-item .icon { width: 16px; height: 16px; color: var(--charcoal); }
 
     /* ── SERVICES ── */
     .services { background: var(--off-white); padding: 5.5rem 1.5rem; }
@@ -269,9 +277,11 @@
       width: 54px; height: 54px;
       background: var(--teal-lt); border-radius: 14px;
       display: flex; align-items: center; justify-content: center;
-      font-size: 1.6rem; margin-bottom: 1.25rem;
+      margin-bottom: 1.25rem;
       border: 1.5px solid var(--border);
+      color: var(--teal);
     }
+    .service-icon-wrap .icon { width: 28px; height: 28px; }
     .service-card h3 {
       font-family: 'Bebas Neue', sans-serif; font-size: 1.45rem;
       color: var(--charcoal); letter-spacing: 0.05em; margin-bottom: 0.6rem;
@@ -310,7 +320,11 @@
       padding-bottom: 1.75rem; border-bottom: 1px solid rgba(255,255,255,0.1);
     }
     .value-item:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
-    .value-icon { font-size: 1.5rem; flex-shrink: 0; margin-top: 0.1rem; }
+    .value-icon {
+      flex-shrink: 0; margin-top: 0.1rem;
+      color: var(--yellow);
+    }
+    .value-icon .icon { width: 24px; height: 24px; }
     .value-item h4 {
       font-family: 'Bebas Neue', sans-serif; font-size: 1.15rem;
       letter-spacing: 0.06em; color: var(--yellow); margin-bottom: 0.3rem;
@@ -396,12 +410,12 @@
       cursor: pointer; border: none;
       box-shadow: 0 10px 28px rgba(27,168,168,0.45);
       transition: transform 0.2s, background 0.2s;
-      font-size: 1.7rem;
     }
     .chat-bubble:hover { background: var(--teal-dark); transform: translateY(-3px); }
+    .chat-bubble .icon { width: 28px; height: 28px; }
     .chat-bubble .chat-bubble-close { display: none; }
     .chat-bubble.open .chat-bubble-icon { display: none; }
-    .chat-bubble.open .chat-bubble-close { display: inline; }
+    .chat-bubble.open .chat-bubble-close { display: inline-block; }
 
     .chat-window {
       position: fixed; bottom: 6.5rem; right: 1.5rem; z-index: 499;
@@ -489,9 +503,10 @@
     .chat-send {
       background: var(--teal); color: var(--white);
       border: none; border-radius: 10px;
-      padding: 0 1rem; font-weight: 700; font-size: 1rem;
-      cursor: pointer; transition: background 0.2s;
+      padding: 0 0.95rem; cursor: pointer; transition: background 0.2s;
+      display: inline-flex; align-items: center; justify-content: center;
     }
+    .chat-send .icon { width: 20px; height: 20px; }
     .chat-send:hover:not(:disabled) { background: var(--teal-dark); }
     .chat-send:disabled { opacity: 0.5; cursor: not-allowed; }
 
@@ -546,20 +561,26 @@
       </nav>
       <div class="header-right">
         <button id="lang-toggle" class="lang-toggle" type="button" aria-label="Toggle language">
-          <span class="lang-flag">🌐</span><span id="lang-toggle-label">ES</span>
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15 15 0 0 1 0 20a15 15 0 0 1 0-20"/>
+          </svg>
+          <span id="lang-toggle-label">ES</span>
         </button>
-        <a href="tel:4097392944" class="cta-call">⚡ (409) 739-2944</a>
+        <a href="tel:4097392944" class="cta-call">(409) 739-2944</a>
       </div>
     </div>
   </header>
 
   <!-- HERO -->
   <section class="hero">
+    <svg class="hero-watermark" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z"/>
+    </svg>
     <div class="hero-inner">
       <div>
         <div class="hero-badge"
-             data-en="⚡ Licensed &amp; Insured · Est. 2025"
-             data-es="⚡ Licenciado y Asegurado · Desde 2025">⚡ Licensed &amp; Insured · Est. 2025</div>
+             data-en="Licensed &amp; Insured · Est. 2025"
+             data-es="Licenciado y Asegurado · Desde 2025">Licensed &amp; Insured · Est. 2025</div>
         <h1 class="hero-title">
           <span data-en="Power Your" data-es="Energía Para Su">Power Your</span><br/>
           <em data-en="Home &amp; Business" data-es="Hogar y Negocio">Home &amp; Business</em>
@@ -572,8 +593,8 @@
         </p>
         <div class="hero-actions">
           <a href="tel:4097392944" class="btn-yellow"
-             data-en="⚡ Call for Free Estimate"
-             data-es="⚡ Llame para Estimado Gratis">⚡ Call for Free Estimate</a>
+             data-en="Call for Free Estimate"
+             data-es="Llame para Estimado Gratis">Call for Free Estimate</a>
           <a href="#contact" class="btn-outline-white"
              data-en="Request a Quote"
              data-es="Solicitar Cotización">Request a Quote</a>
@@ -586,7 +607,15 @@
           <div class="stat-box"><strong>100%</strong><span data-en="Licensed"   data-es="Licenciado">Licensed</span></div>
           <div class="stat-box"><strong data-en="FREE" data-es="GRATIS">FREE</strong><span data-en="Estimates"  data-es="Estimados">Estimates</span></div>
           <div class="stat-box"><strong>24/7</strong><span data-en="Emergency"  data-es="Emergencia">Emergency</span></div>
-          <div class="stat-box"><strong>5★</strong>  <span data-en="Service"    data-es="Servicio">Service</span></div>
+          <div class="stat-box">
+            <strong>
+              5
+              <svg class="icon stat-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1L12 2Z"/>
+              </svg>
+            </strong>
+            <span data-en="Service" data-es="Servicio">Service</span>
+          </div>
         </div>
       </div>
     </div>
@@ -595,11 +624,26 @@
   <!-- TRUST BAR -->
   <div class="trust-bar">
     <div class="trust-inner">
-      <div class="trust-item" data-en="✔ Licensed &amp; Insured"     data-es="✔ Licenciado y Asegurado">✔ Licensed &amp; Insured</div>
-      <div class="trust-item" data-en="✔ Free Estimates"             data-es="✔ Estimados Gratis">✔ Free Estimates</div>
-      <div class="trust-item" data-en="✔ Family Owned"               data-es="✔ Negocio Familiar">✔ Family Owned</div>
-      <div class="trust-item" data-en="✔ 24/7 Emergency Service"     data-es="✔ Servicio de Emergencia 24/7">✔ 24/7 Emergency Service</div>
-      <div class="trust-item" data-en="✔ Transparent Pricing"        data-es="✔ Precios Transparentes">✔ Transparent Pricing</div>
+      <div class="trust-item">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 13 4 4L19 7"/></svg>
+        <span data-en="Licensed &amp; Insured" data-es="Licenciado y Asegurado">Licensed &amp; Insured</span>
+      </div>
+      <div class="trust-item">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 13 4 4L19 7"/></svg>
+        <span data-en="Free Estimates" data-es="Estimados Gratis">Free Estimates</span>
+      </div>
+      <div class="trust-item">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 13 4 4L19 7"/></svg>
+        <span data-en="Family Owned" data-es="Negocio Familiar">Family Owned</span>
+      </div>
+      <div class="trust-item">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 13 4 4L19 7"/></svg>
+        <span data-en="24/7 Emergency Service" data-es="Servicio de Emergencia 24/7">24/7 Emergency Service</span>
+      </div>
+      <div class="trust-item">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 13 4 4L19 7"/></svg>
+        <span data-en="Transparent Pricing" data-es="Precios Transparentes">Transparent Pricing</span>
+      </div>
     </div>
   </div>
 
@@ -614,48 +658,90 @@
         From residential wiring to commercial panel upgrades and emergency service — we handle it all with precision and care.
       </p>
       <div class="services-grid">
+        <!-- Residential — house -->
         <div class="service-card">
-          <div class="service-icon-wrap">🏠</div>
+          <div class="service-icon-wrap">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="m3 11 9-8 9 8"/>
+              <path d="M5 9.5V20h14V9.5"/>
+              <path d="M10 20v-6h4v6"/>
+            </svg>
+          </div>
           <h3 data-en="Residential" data-es="Residencial">Residential</h3>
           <p data-en="Electrical installations, repairs, upgrades, and rewiring for homes. Expert troubleshooting and safety compliance every time."
              data-es="Instalaciones eléctricas, reparaciones, actualizaciones y recableado para hogares. Diagnóstico experto y cumplimiento de seguridad siempre.">
             Electrical installations, repairs, upgrades, and rewiring for homes. Expert troubleshooting and safety compliance every time.
           </p>
         </div>
+
+        <!-- Commercial — building -->
         <div class="service-card">
-          <div class="service-icon-wrap">🏢</div>
+          <div class="service-icon-wrap">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="4" y="3" width="16" height="18" rx="1"/>
+              <path d="M8 7h2M14 7h2M8 11h2M14 11h2M8 15h2M14 15h2"/>
+              <path d="M10 21v-3h4v3"/>
+            </svg>
+          </div>
           <h3 data-en="Commercial" data-es="Comercial">Commercial</h3>
           <p data-en="Comprehensive electrical solutions for businesses. Panel installations, maintenance, and industrial-grade systems you can rely on."
              data-es="Soluciones eléctricas integrales para negocios. Instalaciones de paneles, mantenimiento y sistemas de grado industrial confiables.">
             Comprehensive electrical solutions for businesses. Panel installations, maintenance, and industrial-grade systems you can rely on.
           </p>
         </div>
+
+        <!-- Generator — bolt -->
         <div class="service-card">
-          <div class="service-icon-wrap">⚡</div>
+          <div class="service-icon-wrap">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z"/>
+            </svg>
+          </div>
           <h3 data-en="Generator Installation" data-es="Instalación de Generadores">Generator Installation</h3>
           <p data-en="Backup power solutions for homes and businesses. Professional installation, testing, and ongoing maintenance."
              data-es="Soluciones de energía de respaldo para hogares y negocios. Instalación profesional, pruebas y mantenimiento continuo.">
             Backup power solutions for homes and businesses. Professional installation, testing, and ongoing maintenance.
           </p>
         </div>
+
+        <!-- House Service Hookup — plug -->
         <div class="service-card">
-          <div class="service-icon-wrap">🔌</div>
+          <div class="service-icon-wrap">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 2v6"/><path d="M15 2v6"/>
+              <path d="M7 8h10v3a5 5 0 0 1-10 0V8Z"/>
+              <path d="M12 16v6"/>
+            </svg>
+          </div>
           <h3 data-en="House Service Hookup" data-es="Conexión de Servicio">House Service Hookup</h3>
           <p data-en="Complete electrical service connections and upgrades for new construction, additions, and major renovations."
              data-es="Conexiones eléctricas completas y actualizaciones para nuevas construcciones, ampliaciones y renovaciones mayores.">
             Complete electrical service connections and upgrades for new construction, additions, and major renovations.
           </p>
         </div>
+
+        <!-- Repairs & Remodels — wrench -->
         <div class="service-card">
-          <div class="service-icon-wrap">🔧</div>
+          <div class="service-icon-wrap">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76Z"/>
+            </svg>
+          </div>
           <h3 data-en="Repairs &amp; Remodels" data-es="Reparaciones y Remodelaciones">Repairs &amp; Remodels</h3>
           <p data-en="Expert diagnostics and electrical repairs. Full support for renovation and remodeling projects of any size."
              data-es="Diagnósticos expertos y reparaciones eléctricas. Soporte completo para proyectos de renovación y remodelación de cualquier tamaño.">
             Expert diagnostics and electrical repairs. Full support for renovation and remodeling projects of any size.
           </p>
         </div>
+
+        <!-- Emergency — shield-alert -->
         <div class="service-card">
-          <div class="service-icon-wrap">🚨</div>
+          <div class="service-icon-wrap">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/>
+              <path d="M12 8v4"/><path d="M12 16h.01"/>
+            </svg>
+          </div>
           <h3 data-en="Emergency Service" data-es="Servicio de Emergencia">Emergency Service</h3>
           <p data-en="Electrical emergencies don't wait. Fast, reliable response available around the clock when you need it most."
              data-es="Las emergencias eléctricas no esperan. Respuesta rápida y confiable disponible las 24 horas cuando más lo necesita.">
@@ -685,8 +771,14 @@
         </p>
       </div>
       <div class="about-right">
+        <!-- Honest & Transparent — check-in-circle -->
         <div class="value-item">
-          <div class="value-icon">🤝</div>
+          <div class="value-icon">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="m8 12 3 3 5-6"/>
+            </svg>
+          </div>
           <div>
             <h4 data-en="Honest &amp; Transparent" data-es="Honesto y Transparente">Honest &amp; Transparent</h4>
             <p data-en="No hidden fees. No surprises. We tell you exactly what it costs before we start any work."
@@ -695,8 +787,14 @@
             </p>
           </div>
         </div>
+
+        <!-- Licensed & Insured — shield -->
         <div class="value-item">
-          <div class="value-icon">🛡️</div>
+          <div class="value-icon">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/>
+            </svg>
+          </div>
           <div>
             <h4 data-en="Licensed &amp; Insured" data-es="Licenciado y Asegurado">Licensed &amp; Insured</h4>
             <p data-en="Fully licensed electrical contractor. You're covered from start to finish on every job we take."
@@ -705,8 +803,14 @@
             </p>
           </div>
         </div>
+
+        <!-- Fast & Reliable — bolt -->
         <div class="value-item">
-          <div class="value-icon">⚡</div>
+          <div class="value-icon">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z"/>
+            </svg>
+          </div>
           <div>
             <h4 data-en="Fast &amp; Reliable" data-es="Rápido y Confiable">Fast &amp; Reliable</h4>
             <p data-en="We show up on time, communicate clearly, and get the job done right the first time."
@@ -715,8 +819,14 @@
             </p>
           </div>
         </div>
+
+        <!-- Community First — heart -->
         <div class="value-item">
-          <div class="value-icon">❤️</div>
+          <div class="value-icon">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78Z"/>
+            </svg>
+          </div>
           <div>
             <h4 data-en="Community First" data-es="Comunidad Primero">Community First</h4>
             <p data-en="We're proud to serve our neighbors. Every job we complete powers a home, a family, a dream."
@@ -838,8 +948,12 @@
   <!-- CHAT WIDGET -->
   <button id="chat-bubble" class="chat-bubble" type="button"
           aria-label="Open chat" title="Chat with us">
-    <span class="chat-bubble-icon">💬</span>
-    <span class="chat-bubble-close">✕</span>
+    <svg class="icon chat-bubble-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10Z"/>
+    </svg>
+    <svg class="icon chat-bubble-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M18 6 6 18M6 6l12 12"/>
+    </svg>
   </button>
   <div id="chat-window" class="chat-window" role="dialog" aria-label="H2H Electric chat">
     <div class="chat-header">
@@ -855,7 +969,11 @@
              placeholder="Type your message..."
              data-en-placeholder="Type your message..."
              data-es-placeholder="Escriba su mensaje..." />
-      <button class="chat-send" type="submit" aria-label="Send">➤</button>
+      <button class="chat-send" type="submit" aria-label="Send">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="m22 2-7 20-4-9-9-4 20-7Z"/>
+        </svg>
+      </button>
     </form>
   </div>
 
@@ -893,7 +1011,7 @@
     const contactForm = document.getElementById('contact-form');
     const formStatus  = document.getElementById('form-status');
     const STATUS_TXT = {
-      success: { en: "✓ Thanks! We'll be in touch soon.", es: '✓ ¡Gracias! Le contactaremos pronto.' },
+      success: { en: "Thanks! We'll be in touch soon.", es: '¡Gracias! Le contactaremos pronto.' },
       error:   { en: 'Something went wrong. Please call (409) 739-2944.', es: 'Algo salió mal. Por favor llame al (409) 739-2944.' },
       sending: { en: 'Sending…', es: 'Enviando…' }
     };
