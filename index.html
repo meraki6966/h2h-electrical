@@ -108,6 +108,18 @@
       transition: color 0.2s;
     }
     nav a:hover { color: var(--teal); }
+    .header-right { display: flex; align-items: center; gap: 0.75rem; }
+    .lang-toggle {
+      background: var(--white); color: var(--teal);
+      border: 2px solid var(--teal);
+      padding: 0.55rem 0.85rem; border-radius: 8px;
+      font-family: 'DM Sans', sans-serif; font-weight: 700;
+      font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase;
+      cursor: pointer; transition: all 0.2s;
+      display: inline-flex; align-items: center; gap: 0.35rem;
+    }
+    .lang-toggle:hover { background: var(--teal); color: var(--white); }
+    .lang-toggle .lang-flag { font-size: 0.95rem; line-height: 1; }
     .cta-call {
       background: var(--yellow); color: var(--charcoal);
       padding: 0.75rem 1.4rem; border-radius: 8px;
@@ -125,14 +137,12 @@
       background: linear-gradient(135deg, var(--teal-dark) 0%, var(--teal) 60%, #23c4c4 100%);
       position: relative; overflow: hidden;
     }
-    /* Lightning bolt watermark */
     .hero::before {
       content: '⚡';
       position: absolute; right: -2rem; top: -2rem;
       font-size: 28rem; opacity: 0.04; line-height: 1;
       pointer-events: none; user-select: none;
     }
-    /* Bottom diagonal cut */
     .hero::after {
       content: ''; position: absolute;
       bottom: -2px; left: 0; right: 0; height: 90px;
@@ -188,7 +198,6 @@
       border-color: var(--white); background: rgba(255,255,255,0.1); transform: translateY(-3px);
     }
 
-    /* Hero card */
     .hero-card {
       background: var(--white); border-radius: 20px; padding: 2.5rem 2rem;
       display: flex; flex-direction: column; align-items: center; gap: 1.75rem;
@@ -364,6 +373,12 @@
       background: var(--teal-dark); transform: translateY(-2px);
       box-shadow: 0 10px 24px rgba(27,168,168,0.3);
     }
+    .form-status {
+      margin-top: 1rem; padding: 0.85rem 1rem; border-radius: 8px;
+      font-size: 0.92rem; font-weight: 600; text-align: center; display: none;
+    }
+    .form-status.success { display: block; background: #e6f7ec; color: #1a7a3f; border: 1.5px solid #b8e6c9; }
+    .form-status.error   { display: block; background: #fdecec; color: #b53030; border: 1.5px solid #f4c2c2; }
 
     /* ── FOOTER ── */
     footer {
@@ -371,6 +386,114 @@
       text-align: center; color: rgba(255,255,255,0.4); font-size: 0.85rem;
     }
     footer a { color: var(--yellow); text-decoration: none; }
+
+    /* ── CHAT WIDGET ── */
+    .chat-bubble {
+      position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 500;
+      width: 64px; height: 64px; border-radius: 50%;
+      background: var(--teal); color: var(--white);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; border: none;
+      box-shadow: 0 10px 28px rgba(27,168,168,0.45);
+      transition: transform 0.2s, background 0.2s;
+      font-size: 1.7rem;
+    }
+    .chat-bubble:hover { background: var(--teal-dark); transform: translateY(-3px); }
+    .chat-bubble .chat-bubble-close { display: none; }
+    .chat-bubble.open .chat-bubble-icon { display: none; }
+    .chat-bubble.open .chat-bubble-close { display: inline; }
+
+    .chat-window {
+      position: fixed; bottom: 6.5rem; right: 1.5rem; z-index: 499;
+      width: 380px; max-width: calc(100vw - 2rem);
+      height: 560px; max-height: calc(100vh - 8rem);
+      background: var(--white); border-radius: 18px;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.25);
+      display: none; flex-direction: column; overflow: hidden;
+      border: 1.5px solid var(--border);
+    }
+    .chat-window.open { display: flex; animation: chatPop 0.22s ease-out both; }
+    @keyframes chatPop {
+      from { opacity: 0; transform: translateY(12px) scale(0.98); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .chat-header {
+      background: linear-gradient(135deg, var(--teal-dark), var(--teal));
+      color: var(--white); padding: 0.95rem 1.1rem;
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .chat-header img {
+      width: 40px; height: 40px; object-fit: contain;
+      background: var(--white); border-radius: 8px; padding: 3px;
+    }
+    .chat-header-text { display: flex; flex-direction: column; line-height: 1.15; }
+    .chat-header-text strong {
+      font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.06em;
+      font-size: 1.05rem;
+    }
+    .chat-header-text span {
+      font-size: 0.74rem; opacity: 0.85; display: inline-flex; align-items: center; gap: 0.35rem;
+    }
+    .chat-header-text span::before {
+      content: ''; width: 7px; height: 7px; border-radius: 50%;
+      background: #4ade80; display: inline-block;
+    }
+    .chat-messages {
+      flex: 1; overflow-y: auto; padding: 1rem;
+      display: flex; flex-direction: column; gap: 0.65rem;
+      background: var(--off-white);
+    }
+    .chat-msg {
+      max-width: 85%; padding: 0.65rem 0.9rem; border-radius: 14px;
+      font-size: 0.92rem; line-height: 1.45; word-wrap: break-word; white-space: pre-wrap;
+    }
+    .chat-msg.bot {
+      background: var(--white); color: var(--charcoal);
+      border: 1.5px solid var(--border);
+      align-self: flex-start; border-bottom-left-radius: 4px;
+    }
+    .chat-msg.user {
+      background: var(--teal); color: var(--white);
+      align-self: flex-end; border-bottom-right-radius: 4px;
+    }
+    .chat-typing {
+      align-self: flex-start; background: var(--white);
+      border: 1.5px solid var(--border); padding: 0.7rem 0.9rem;
+      border-radius: 14px; border-bottom-left-radius: 4px;
+      display: inline-flex; gap: 4px;
+    }
+    .chat-typing span {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--mid); opacity: 0.6;
+      animation: typingBounce 1.2s infinite ease-in-out;
+    }
+    .chat-typing span:nth-child(2) { animation-delay: 0.15s; }
+    .chat-typing span:nth-child(3) { animation-delay: 0.3s; }
+    @keyframes typingBounce {
+      0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+      30%           { transform: translateY(-5px); opacity: 1; }
+    }
+    .chat-input-row {
+      display: flex; gap: 0.5rem; padding: 0.75rem;
+      background: var(--white); border-top: 1.5px solid var(--border);
+    }
+    .chat-input-row input {
+      flex: 1; background: var(--off-white); border: 1.5px solid var(--border);
+      color: var(--charcoal); padding: 0.7rem 0.9rem; border-radius: 10px;
+      font-family: 'DM Sans', sans-serif; font-size: 0.93rem; outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .chat-input-row input:focus {
+      border-color: var(--teal); box-shadow: 0 0 0 3px rgba(27,168,168,0.15);
+    }
+    .chat-send {
+      background: var(--teal); color: var(--white);
+      border: none; border-radius: 10px;
+      padding: 0 1rem; font-weight: 700; font-size: 1rem;
+      cursor: pointer; transition: background 0.2s;
+    }
+    .chat-send:hover:not(:disabled) { background: var(--teal-dark); }
+    .chat-send:disabled { opacity: 0.5; cursor: not-allowed; }
 
     /* ── ANIMATIONS ── */
     @keyframes fadeUp {
@@ -397,6 +520,8 @@
       .services-grid { grid-template-columns: 1fr; }
       .cta-call { font-size: 0.8rem; padding: 0.65rem 1rem; }
       .hero-stats { grid-template-columns: 1fr 1fr; }
+      .chat-window { bottom: 5.5rem; right: 1rem; left: 1rem; width: auto; height: 70vh; }
+      .chat-bubble { right: 1rem; bottom: 1rem; }
     }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
@@ -415,11 +540,16 @@
         <span class="logo-text">H2H Electrical</span>
       </a>
       <nav>
-        <a href="#services">Services</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
+        <a href="#services" data-en="Services" data-es="Servicios">Services</a>
+        <a href="#about"    data-en="About"    data-es="Nosotros">About</a>
+        <a href="#contact"  data-en="Contact"  data-es="Contacto">Contact</a>
       </nav>
-      <a href="tel:4097392944" class="cta-call">⚡ (409) 739-2944</a>
+      <div class="header-right">
+        <button id="lang-toggle" class="lang-toggle" type="button" aria-label="Toggle language">
+          <span class="lang-flag">🌐</span><span id="lang-toggle-label">ES</span>
+        </button>
+        <a href="tel:4097392944" class="cta-call">⚡ (409) 739-2944</a>
+      </div>
     </div>
   </header>
 
@@ -427,28 +557,36 @@
   <section class="hero">
     <div class="hero-inner">
       <div>
-        <div class="hero-badge">⚡ Licensed &amp; Insured · Est. 2025</div>
+        <div class="hero-badge"
+             data-en="⚡ Licensed &amp; Insured · Est. 2025"
+             data-es="⚡ Licenciado y Asegurado · Desde 2025">⚡ Licensed &amp; Insured · Est. 2025</div>
         <h1 class="hero-title">
-          Power Your<br/>
-          <em>Home &amp; Business</em>
-          The Right Way
+          <span data-en="Power Your" data-es="Energía Para Su">Power Your</span><br/>
+          <em data-en="Home &amp; Business" data-es="Hogar y Negocio">Home &amp; Business</em>
+          <span data-en="The Right Way" data-es="Hecho Bien">The Right Way</span>
         </h1>
-        <p class="hero-sub">
+        <p class="hero-sub"
+           data-en="Family-owned electrical contractor serving residential, commercial, and generator needs across Texas. Free estimates. Honest pricing. Built on trust."
+           data-es="Contratista eléctrico familiar que atiende necesidades residenciales, comerciales y de generadores en todo Texas. Estimados gratis. Precios honestos. Construido sobre la confianza.">
           Family-owned electrical contractor serving residential, commercial, and generator needs across Texas. Free estimates. Honest pricing. Built on trust.
         </p>
         <div class="hero-actions">
-          <a href="tel:4097392944" class="btn-yellow">⚡ Call for Free Estimate</a>
-          <a href="#contact" class="btn-outline-white">Request a Quote</a>
+          <a href="tel:4097392944" class="btn-yellow"
+             data-en="⚡ Call for Free Estimate"
+             data-es="⚡ Llame para Estimado Gratis">⚡ Call for Free Estimate</a>
+          <a href="#contact" class="btn-outline-white"
+             data-en="Request a Quote"
+             data-es="Solicitar Cotización">Request a Quote</a>
         </div>
       </div>
 
       <div class="hero-card">
         <img src="logo.png" alt="H2H Electrical" />
         <div class="hero-stats">
-          <div class="stat-box"><strong>100%</strong><span>Licensed</span></div>
-          <div class="stat-box"><strong>FREE</strong><span>Estimates</span></div>
-          <div class="stat-box"><strong>24/7</strong><span>Emergency</span></div>
-          <div class="stat-box"><strong>5★</strong><span>Service</span></div>
+          <div class="stat-box"><strong>100%</strong><span data-en="Licensed"   data-es="Licenciado">Licensed</span></div>
+          <div class="stat-box"><strong data-en="FREE" data-es="GRATIS">FREE</strong><span data-en="Estimates"  data-es="Estimados">Estimates</span></div>
+          <div class="stat-box"><strong>24/7</strong><span data-en="Emergency"  data-es="Emergencia">Emergency</span></div>
+          <div class="stat-box"><strong>5★</strong>  <span data-en="Service"    data-es="Servicio">Service</span></div>
         </div>
       </div>
     </div>
@@ -457,50 +595,72 @@
   <!-- TRUST BAR -->
   <div class="trust-bar">
     <div class="trust-inner">
-      <div class="trust-item">✔ Licensed &amp; Insured</div>
-      <div class="trust-item">✔ Free Estimates</div>
-      <div class="trust-item">✔ Family Owned</div>
-      <div class="trust-item">✔ 24/7 Emergency Service</div>
-      <div class="trust-item">✔ Transparent Pricing</div>
+      <div class="trust-item" data-en="✔ Licensed &amp; Insured"     data-es="✔ Licenciado y Asegurado">✔ Licensed &amp; Insured</div>
+      <div class="trust-item" data-en="✔ Free Estimates"             data-es="✔ Estimados Gratis">✔ Free Estimates</div>
+      <div class="trust-item" data-en="✔ Family Owned"               data-es="✔ Negocio Familiar">✔ Family Owned</div>
+      <div class="trust-item" data-en="✔ 24/7 Emergency Service"     data-es="✔ Servicio de Emergencia 24/7">✔ 24/7 Emergency Service</div>
+      <div class="trust-item" data-en="✔ Transparent Pricing"        data-es="✔ Precios Transparentes">✔ Transparent Pricing</div>
     </div>
   </div>
 
   <!-- SERVICES -->
   <section class="services" id="services">
     <div class="services-inner">
-      <div class="section-label">What We Do</div>
-      <h2 class="section-heading">Our Services</h2>
-      <p class="section-sub">From residential wiring to commercial panel upgrades and emergency service — we handle it all with precision and care.</p>
+      <div class="section-label" data-en="What We Do" data-es="Lo Que Hacemos">What We Do</div>
+      <h2 class="section-heading" data-en="Our Services" data-es="Nuestros Servicios">Our Services</h2>
+      <p class="section-sub"
+         data-en="From residential wiring to commercial panel upgrades and emergency service — we handle it all with precision and care."
+         data-es="Desde cableado residencial hasta actualizaciones de paneles comerciales y servicio de emergencia — lo manejamos todo con precisión y cuidado.">
+        From residential wiring to commercial panel upgrades and emergency service — we handle it all with precision and care.
+      </p>
       <div class="services-grid">
         <div class="service-card">
           <div class="service-icon-wrap">🏠</div>
-          <h3>Residential</h3>
-          <p>Electrical installations, repairs, upgrades, and rewiring for homes. Expert troubleshooting and safety compliance every time.</p>
+          <h3 data-en="Residential" data-es="Residencial">Residential</h3>
+          <p data-en="Electrical installations, repairs, upgrades, and rewiring for homes. Expert troubleshooting and safety compliance every time."
+             data-es="Instalaciones eléctricas, reparaciones, actualizaciones y recableado para hogares. Diagnóstico experto y cumplimiento de seguridad siempre.">
+            Electrical installations, repairs, upgrades, and rewiring for homes. Expert troubleshooting and safety compliance every time.
+          </p>
         </div>
         <div class="service-card">
           <div class="service-icon-wrap">🏢</div>
-          <h3>Commercial</h3>
-          <p>Comprehensive electrical solutions for businesses. Panel installations, maintenance, and industrial-grade systems you can rely on.</p>
+          <h3 data-en="Commercial" data-es="Comercial">Commercial</h3>
+          <p data-en="Comprehensive electrical solutions for businesses. Panel installations, maintenance, and industrial-grade systems you can rely on."
+             data-es="Soluciones eléctricas integrales para negocios. Instalaciones de paneles, mantenimiento y sistemas de grado industrial confiables.">
+            Comprehensive electrical solutions for businesses. Panel installations, maintenance, and industrial-grade systems you can rely on.
+          </p>
         </div>
         <div class="service-card">
           <div class="service-icon-wrap">⚡</div>
-          <h3>Generator Installation</h3>
-          <p>Backup power solutions for homes and businesses. Professional installation, testing, and ongoing maintenance.</p>
+          <h3 data-en="Generator Installation" data-es="Instalación de Generadores">Generator Installation</h3>
+          <p data-en="Backup power solutions for homes and businesses. Professional installation, testing, and ongoing maintenance."
+             data-es="Soluciones de energía de respaldo para hogares y negocios. Instalación profesional, pruebas y mantenimiento continuo.">
+            Backup power solutions for homes and businesses. Professional installation, testing, and ongoing maintenance.
+          </p>
         </div>
         <div class="service-card">
           <div class="service-icon-wrap">🔌</div>
-          <h3>House Service Hookup</h3>
-          <p>Complete electrical service connections and upgrades for new construction, additions, and major renovations.</p>
+          <h3 data-en="House Service Hookup" data-es="Conexión de Servicio">House Service Hookup</h3>
+          <p data-en="Complete electrical service connections and upgrades for new construction, additions, and major renovations."
+             data-es="Conexiones eléctricas completas y actualizaciones para nuevas construcciones, ampliaciones y renovaciones mayores.">
+            Complete electrical service connections and upgrades for new construction, additions, and major renovations.
+          </p>
         </div>
         <div class="service-card">
           <div class="service-icon-wrap">🔧</div>
-          <h3>Repairs &amp; Remodels</h3>
-          <p>Expert diagnostics and electrical repairs. Full support for renovation and remodeling projects of any size.</p>
+          <h3 data-en="Repairs &amp; Remodels" data-es="Reparaciones y Remodelaciones">Repairs &amp; Remodels</h3>
+          <p data-en="Expert diagnostics and electrical repairs. Full support for renovation and remodeling projects of any size."
+             data-es="Diagnósticos expertos y reparaciones eléctricas. Soporte completo para proyectos de renovación y remodelación de cualquier tamaño.">
+            Expert diagnostics and electrical repairs. Full support for renovation and remodeling projects of any size.
+          </p>
         </div>
         <div class="service-card">
           <div class="service-icon-wrap">🚨</div>
-          <h3>Emergency Service</h3>
-          <p>Electrical emergencies don't wait. Fast, reliable response available around the clock when you need it most.</p>
+          <h3 data-en="Emergency Service" data-es="Servicio de Emergencia">Emergency Service</h3>
+          <p data-en="Electrical emergencies don't wait. Fast, reliable response available around the clock when you need it most."
+             data-es="Las emergencias eléctricas no esperan. Respuesta rápida y confiable disponible las 24 horas cuando más lo necesita.">
+            Electrical emergencies don't wait. Fast, reliable response available around the clock when you need it most.
+          </p>
         </div>
       </div>
     </div>
@@ -510,38 +670,59 @@
   <section class="about" id="about">
     <div class="about-inner">
       <div class="about-left">
-        <div class="section-label">Our Story</div>
-        <h2 class="section-heading">Built on Family.<br/>Driven by Trust.</h2>
-        <p>Here at H2H Electric we are a small family-owned business. We strive to produce the best work with attention to detail. We want to build a relationship with our customers — not just be a contractor, but someone who is trusted with all your electrical needs.</p>
-        <p>We took the leap of faith to start our business in June 2025, with one goal: to help people get the best quality electrical work at an affordable price. Safe, reliable, and done right the first time.</p>
+        <div class="section-label" data-en="Our Story" data-es="Nuestra Historia">Our Story</div>
+        <h2 class="section-heading">
+          <span data-en="Built on Family." data-es="Basado en Familia.">Built on Family.</span><br/>
+          <span data-en="Driven by Trust."  data-es="Impulsado por Confianza.">Driven by Trust.</span>
+        </h2>
+        <p data-en="Here at H2H Electric we are a small family-owned business. We strive to produce the best work with attention to detail. We want to build a relationship with our customers — not just be a contractor, but someone who is trusted with all your electrical needs."
+           data-es="En H2H Electric somos un pequeño negocio familiar. Nos esforzamos por producir el mejor trabajo con atención al detalle. Queremos construir una relación con nuestros clientes — no solo ser un contratista, sino alguien en quien confíen para todas sus necesidades eléctricas.">
+          Here at H2H Electric we are a small family-owned business. We strive to produce the best work with attention to detail. We want to build a relationship with our customers — not just be a contractor, but someone who is trusted with all your electrical needs.
+        </p>
+        <p data-en="We took the leap of faith to start our business in June 2025, with one goal: to help people get the best quality electrical work at an affordable price. Safe, reliable, and done right the first time."
+           data-es="Dimos el salto de fe y comenzamos nuestro negocio en junio de 2025, con un objetivo: ayudar a las personas a obtener el mejor trabajo eléctrico de calidad a un precio asequible. Seguro, confiable y bien hecho desde la primera vez.">
+          We took the leap of faith to start our business in June 2025, with one goal: to help people get the best quality electrical work at an affordable price. Safe, reliable, and done right the first time.
+        </p>
       </div>
       <div class="about-right">
         <div class="value-item">
           <div class="value-icon">🤝</div>
           <div>
-            <h4>Honest &amp; Transparent</h4>
-            <p>No hidden fees. No surprises. We tell you exactly what it costs before we start any work.</p>
+            <h4 data-en="Honest &amp; Transparent" data-es="Honesto y Transparente">Honest &amp; Transparent</h4>
+            <p data-en="No hidden fees. No surprises. We tell you exactly what it costs before we start any work."
+               data-es="Sin tarifas ocultas. Sin sorpresas. Le decimos exactamente cuánto cuesta antes de empezar cualquier trabajo.">
+              No hidden fees. No surprises. We tell you exactly what it costs before we start any work.
+            </p>
           </div>
         </div>
         <div class="value-item">
           <div class="value-icon">🛡️</div>
           <div>
-            <h4>Licensed &amp; Insured</h4>
-            <p>Fully licensed electrical contractor. You're covered from start to finish on every job we take.</p>
+            <h4 data-en="Licensed &amp; Insured" data-es="Licenciado y Asegurado">Licensed &amp; Insured</h4>
+            <p data-en="Fully licensed electrical contractor. You're covered from start to finish on every job we take."
+               data-es="Contratista eléctrico totalmente licenciado. Está cubierto de principio a fin en cada trabajo que hacemos.">
+              Fully licensed electrical contractor. You're covered from start to finish on every job we take.
+            </p>
           </div>
         </div>
         <div class="value-item">
           <div class="value-icon">⚡</div>
           <div>
-            <h4>Fast &amp; Reliable</h4>
-            <p>We show up on time, communicate clearly, and get the job done right the first time.</p>
+            <h4 data-en="Fast &amp; Reliable" data-es="Rápido y Confiable">Fast &amp; Reliable</h4>
+            <p data-en="We show up on time, communicate clearly, and get the job done right the first time."
+               data-es="Llegamos a tiempo, comunicamos con claridad y hacemos el trabajo bien desde la primera vez.">
+              We show up on time, communicate clearly, and get the job done right the first time.
+            </p>
           </div>
         </div>
         <div class="value-item">
           <div class="value-icon">❤️</div>
           <div>
-            <h4>Community First</h4>
-            <p>We're proud to serve our neighbors. Every job we complete powers a home, a family, a dream.</p>
+            <h4 data-en="Community First" data-es="Comunidad Primero">Community First</h4>
+            <p data-en="We're proud to serve our neighbors. Every job we complete powers a home, a family, a dream."
+               data-es="Estamos orgullosos de servir a nuestros vecinos. Cada trabajo que completamos da energía a un hogar, una familia, un sueño.">
+              We're proud to serve our neighbors. Every job we complete powers a home, a family, a dream.
+            </p>
           </div>
         </div>
       </div>
@@ -551,68 +732,92 @@
   <!-- CONTACT -->
   <section class="contact" id="contact">
     <div class="contact-inner">
-      <div class="section-label">Get In Touch</div>
-      <h2 class="section-heading">Request a Free Estimate</h2>
+      <div class="section-label" data-en="Get In Touch" data-es="Contáctenos">Get In Touch</div>
+      <h2 class="section-heading" data-en="Request a Free Estimate" data-es="Solicite un Estimado Gratis">Request a Free Estimate</h2>
       <div class="contact-grid">
         <div class="contact-left">
           <div>
-            <div class="section-label">Contact Info</div>
-            <h3 class="section-heading">We're Ready<br/>To Help</h3>
+            <div class="section-label" data-en="Contact Info" data-es="Información de Contacto">Contact Info</div>
+            <h3 class="section-heading">
+              <span data-en="We're Ready" data-es="Estamos Listos">We're Ready</span><br/>
+              <span data-en="To Help"     data-es="Para Ayudar">To Help</span>
+            </h3>
           </div>
           <div class="contact-detail">
             <div class="contact-detail-item">
-              <strong>Phone</strong>
+              <strong data-en="Phone" data-es="Teléfono">Phone</strong>
               <a href="tel:4097392944">(409) 739-2944</a>
             </div>
             <div class="contact-detail-item">
-              <strong>Email</strong>
+              <strong data-en="Email" data-es="Correo">Email</strong>
               <a href="mailto:h2helectric25@gmail.com">h2helectric25@gmail.com</a>
             </div>
             <div class="contact-detail-item">
-              <strong>Hours</strong>
-              <p>Mon – Fri: 8:00 AM – 5:00 PM<br/>Sat: By Appointment<br/>24/7 Emergency Service</p>
+              <strong data-en="Hours" data-es="Horario">Hours</strong>
+              <p data-en="Mon – Fri: 8:00 AM – 5:00 PM<br/>Sat: By Appointment<br/>24/7 Emergency Service"
+                 data-es="Lun – Vie: 8:00 AM – 5:00 PM<br/>Sáb: Con Cita<br/>Servicio de Emergencia 24/7">
+                Mon – Fri: 8:00 AM – 5:00 PM<br/>Sat: By Appointment<br/>24/7 Emergency Service
+              </p>
             </div>
             <div class="contact-detail-item">
-              <strong>Service Area</strong>
-              <p>Friendswood, TX &amp; Surrounding Areas</p>
+              <strong data-en="Service Area" data-es="Área de Servicio">Service Area</strong>
+              <p data-en="Alvin, Friendswood, League City, Webster &amp; Houston, TX"
+                 data-es="Alvin, Friendswood, League City, Webster y Houston, TX">
+                Alvin, Friendswood, League City, Webster &amp; Houston, TX
+              </p>
             </div>
           </div>
         </div>
         <div class="contact-right">
-          <h3>Send Us a Message</h3>
-          <form onsubmit="handleSubmit(event)">
+          <h3 data-en="Send Us a Message" data-es="Envíenos un Mensaje">Send Us a Message</h3>
+          <form id="contact-form">
             <div class="form-row">
               <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" id="name" name="name" placeholder="Your full name" required />
+                <label for="name" data-en="Name" data-es="Nombre">Name</label>
+                <input type="text" id="name" name="name" required
+                       placeholder="Your full name"
+                       data-en-placeholder="Your full name"
+                       data-es-placeholder="Su nombre completo" />
               </div>
               <div class="form-group">
-                <label for="phone">Phone</label>
-                <input type="tel" id="phone" name="phone" placeholder="(xxx) xxx-xxxx" required />
+                <label for="phone" data-en="Phone" data-es="Teléfono">Phone</label>
+                <input type="tel" id="phone" name="phone" required
+                       placeholder="(xxx) xxx-xxxx"
+                       data-en-placeholder="(xxx) xxx-xxxx"
+                       data-es-placeholder="(xxx) xxx-xxxx" />
               </div>
             </div>
             <div class="form-group">
-              <label for="email">Email</label>
-              <input type="email" id="email" name="email" placeholder="your@email.com" required />
+              <label for="email" data-en="Email" data-es="Correo Electrónico">Email</label>
+              <input type="email" id="email" name="email" required
+                     placeholder="your@email.com"
+                     data-en-placeholder="your@email.com"
+                     data-es-placeholder="su@correo.com" />
             </div>
             <div class="form-group">
-              <label for="service">Service Needed</label>
+              <label for="service" data-en="Service Needed" data-es="Servicio Solicitado">Service Needed</label>
               <select id="service" name="service">
-                <option value="">Select a service...</option>
-                <option>Residential Electrical</option>
-                <option>Commercial Electrical</option>
-                <option>Generator Installation</option>
-                <option>House Service Hookup</option>
-                <option>Repairs &amp; Remodels</option>
-                <option>Emergency Service</option>
-                <option>Other</option>
+                <option value="" data-en="Select a service..." data-es="Seleccione un servicio...">Select a service...</option>
+                <option data-en="Residential Electrical"  data-es="Eléctrico Residencial">Residential Electrical</option>
+                <option data-en="Commercial Electrical"   data-es="Eléctrico Comercial">Commercial Electrical</option>
+                <option data-en="Generator Installation"  data-es="Instalación de Generador">Generator Installation</option>
+                <option data-en="House Service Hookup"    data-es="Conexión de Servicio">House Service Hookup</option>
+                <option data-en="Repairs &amp; Remodels"  data-es="Reparaciones y Remodelaciones">Repairs &amp; Remodels</option>
+                <option data-en="Emergency Service"       data-es="Servicio de Emergencia">Emergency Service</option>
+                <option data-en="Other"                   data-es="Otro">Other</option>
               </select>
             </div>
             <div class="form-group">
-              <label for="message">Message</label>
-              <textarea id="message" name="message" placeholder="Tell us about your project..." required></textarea>
+              <label for="message" data-en="Message" data-es="Mensaje">Message</label>
+              <textarea id="message" name="message" required
+                        placeholder="Tell us about your project..."
+                        data-en-placeholder="Tell us about your project..."
+                        data-es-placeholder="Cuéntenos sobre su proyecto..."></textarea>
             </div>
-            <button type="submit" class="form-submit">Send Request →</button>
+            <button type="submit" class="form-submit"
+                    data-en="Send Request →"
+                    data-es="Enviar Solicitud →">Send Request →</button>
+            <div id="form-status" class="form-status" role="status" aria-live="polite"></div>
           </form>
         </div>
       </div>
@@ -621,23 +826,200 @@
 
   <!-- FOOTER -->
   <footer>
-    <p>&copy; 2025 H2H Electrical &nbsp;·&nbsp; Licensed &amp; Insured &nbsp;·&nbsp; Friendswood, TX &nbsp;·&nbsp; <a href="tel:4097392944">(409) 739-2944</a></p>
+    <p>
+      <span data-en="© 2025 H2H Electrical · Licensed &amp; Insured · Friendswood, TX · "
+            data-es="© 2025 H2H Electrical · Licenciado y Asegurado · Friendswood, TX · ">
+        © 2025 H2H Electrical · Licensed &amp; Insured · Friendswood, TX ·
+      </span>
+      <a href="tel:4097392944">(409) 739-2944</a>
+    </p>
   </footer>
 
+  <!-- CHAT WIDGET -->
+  <button id="chat-bubble" class="chat-bubble" type="button"
+          aria-label="Open chat" title="Chat with us">
+    <span class="chat-bubble-icon">💬</span>
+    <span class="chat-bubble-close">✕</span>
+  </button>
+  <div id="chat-window" class="chat-window" role="dialog" aria-label="H2H Electric chat">
+    <div class="chat-header">
+      <img src="logo.png" alt="H2H Electric" />
+      <div class="chat-header-text">
+        <strong>H2H Electric</strong>
+        <span data-en="Online · We reply fast" data-es="En línea · Respondemos rápido">Online · We reply fast</span>
+      </div>
+    </div>
+    <div id="chat-messages" class="chat-messages"></div>
+    <form id="chat-form" class="chat-input-row">
+      <input id="chat-input" type="text" autocomplete="off"
+             placeholder="Type your message..."
+             data-en-placeholder="Type your message..."
+             data-es-placeholder="Escriba su mensaje..." />
+      <button class="chat-send" type="submit" aria-label="Send">➤</button>
+    </form>
+  </div>
+
   <script>
-    function handleSubmit(e) {
-      e.preventDefault();
-      const btn = e.target.querySelector('.form-submit');
-      btn.textContent = '✓ Sent! We\'ll be in touch soon.';
-      btn.style.background = '#1a7a3f';
-      btn.disabled = true;
-      setTimeout(() => {
-        btn.textContent = 'Send Request →';
-        btn.style.background = '';
-        btn.disabled = false;
-        e.target.reset();
-      }, 4000);
+    /* ── LANGUAGE TOGGLE ───────────────────────────────────── */
+    const I18N_KEY = 'h2h-lang';
+    let currentLang = localStorage.getItem(I18N_KEY) === 'es' ? 'es' : 'en';
+
+    function applyLang(lang) {
+      currentLang = lang;
+      document.documentElement.lang = lang;
+      localStorage.setItem(I18N_KEY, lang);
+
+      document.querySelectorAll('[data-en]').forEach(el => {
+        const txt = el.getAttribute('data-' + lang);
+        if (txt != null) el.innerHTML = txt;
+      });
+      document.querySelectorAll('[data-en-placeholder]').forEach(el => {
+        const txt = el.getAttribute('data-' + lang + '-placeholder');
+        if (txt != null) el.placeholder = txt;
+      });
+      const lbl = document.getElementById('lang-toggle-label');
+      if (lbl) lbl.textContent = lang === 'en' ? 'ES' : 'EN';
+      const tgl = document.getElementById('lang-toggle');
+      if (tgl) tgl.setAttribute('aria-label', lang === 'en' ? 'Cambiar a Español' : 'Switch to English');
     }
+
+    document.getElementById('lang-toggle').addEventListener('click', () => {
+      applyLang(currentLang === 'en' ? 'es' : 'en');
+    });
+    applyLang(currentLang);
+
+    /* ── CONTACT FORM (FORMSPREE AJAX) ─────────────────────── */
+    const FORMSPREE_ENDPOINT = 'https://formspree.io/f/mykoeeln';
+    const contactForm = document.getElementById('contact-form');
+    const formStatus  = document.getElementById('form-status');
+    const STATUS_TXT = {
+      success: { en: "✓ Thanks! We'll be in touch soon.", es: '✓ ¡Gracias! Le contactaremos pronto.' },
+      error:   { en: 'Something went wrong. Please call (409) 739-2944.', es: 'Algo salió mal. Por favor llame al (409) 739-2944.' },
+      sending: { en: 'Sending…', es: 'Enviando…' }
+    };
+
+    contactForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const submitBtn = contactForm.querySelector('.form-submit');
+      const originalLabel = submitBtn.textContent;
+      submitBtn.disabled = true;
+      submitBtn.textContent = STATUS_TXT.sending[currentLang];
+      formStatus.className = 'form-status';
+      formStatus.textContent = '';
+
+      try {
+        const data = new FormData(contactForm);
+        const resp = await fetch(FORMSPREE_ENDPOINT, {
+          method: 'POST',
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        });
+        if (resp.ok) {
+          formStatus.className = 'form-status success';
+          formStatus.textContent = STATUS_TXT.success[currentLang];
+          contactForm.reset();
+        } else {
+          throw new Error('Formspree error');
+        }
+      } catch (err) {
+        formStatus.className = 'form-status error';
+        formStatus.textContent = STATUS_TXT.error[currentLang];
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalLabel;
+      }
+    });
+
+    /* ── CHAT WIDGET ───────────────────────────────────────── */
+    const chatBubble   = document.getElementById('chat-bubble');
+    const chatWindow   = document.getElementById('chat-window');
+    const chatMessages = document.getElementById('chat-messages');
+    const chatForm     = document.getElementById('chat-form');
+    const chatInput    = document.getElementById('chat-input');
+    const chatSend     = chatForm.querySelector('.chat-send');
+
+    const GREETING = {
+      en: "Hi! I'm the H2H Electric assistant. How can I help you today? You can ask about our services, hours, or request a free estimate.",
+      es: "¡Hola! Soy el asistente de H2H Electric. ¿Cómo puedo ayudarle hoy? Puede preguntar sobre nuestros servicios, horarios, o solicitar un estimado gratis."
+    };
+
+    let chatHistory = [];
+    let greeted = false;
+
+    function addMsg(role, text) {
+      const el = document.createElement('div');
+      el.className = 'chat-msg ' + (role === 'user' ? 'user' : 'bot');
+      el.textContent = text;
+      chatMessages.appendChild(el);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function showTyping() {
+      const t = document.createElement('div');
+      t.className = 'chat-typing';
+      t.id = 'chat-typing-indicator';
+      t.innerHTML = '<span></span><span></span><span></span>';
+      chatMessages.appendChild(t);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+    function hideTyping() {
+      const t = document.getElementById('chat-typing-indicator');
+      if (t) t.remove();
+    }
+
+    function openChat() {
+      chatWindow.classList.add('open');
+      chatBubble.classList.add('open');
+      chatBubble.setAttribute('aria-label', currentLang === 'es' ? 'Cerrar chat' : 'Close chat');
+      if (!greeted) {
+        addMsg('bot', GREETING[currentLang]);
+        greeted = true;
+      }
+      setTimeout(() => chatInput.focus(), 100);
+    }
+    function closeChat() {
+      chatWindow.classList.remove('open');
+      chatBubble.classList.remove('open');
+      chatBubble.setAttribute('aria-label', currentLang === 'es' ? 'Abrir chat' : 'Open chat');
+    }
+    chatBubble.addEventListener('click', () => {
+      chatWindow.classList.contains('open') ? closeChat() : openChat();
+    });
+
+    chatForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const text = chatInput.value.trim();
+      if (!text) return;
+      addMsg('user', text);
+      chatHistory.push({ role: 'user', content: text });
+      chatInput.value = '';
+      chatSend.disabled = true;
+      showTyping();
+
+      try {
+        const resp = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ messages: chatHistory, lang: currentLang })
+        });
+        hideTyping();
+        if (!resp.ok) throw new Error('Chat API error: ' + resp.status);
+        const data = await resp.json();
+        const reply = (data && data.reply) ? data.reply : (currentLang === 'es'
+          ? 'Lo siento, hubo un problema. Por favor llame al (409) 739-2944.'
+          : "Sorry, something went wrong. Please call (409) 739-2944.");
+        addMsg('bot', reply);
+        chatHistory.push({ role: 'assistant', content: reply });
+      } catch (err) {
+        hideTyping();
+        addMsg('bot', currentLang === 'es'
+          ? 'No pude conectarme en este momento. Por favor llame al (409) 739-2944 o use el formulario de contacto.'
+          : "I couldn't connect right now. Please call (409) 739-2944 or use the contact form.");
+      } finally {
+        chatSend.disabled = false;
+        chatInput.focus();
+      }
+    });
   </script>
 
 </body>
