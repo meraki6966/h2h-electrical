@@ -2,9 +2,10 @@
 // POST /api/chat  { messages: [{role,content}], lang?: 'en'|'es' }
 // Response: { reply: string }
 
-const ANTHROPIC_API_URL = 'https://api.anthropic.com/v1/messages';
-const MODEL             = 'claude-sonnet-4-20250514';
-const MAX_TOKENS        = 600;
+const ANTHROPIC_API_URL  = 'https://api.anthropic.com/v1/messages';
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/mykoeeln';
+const MODEL              = 'claude-sonnet-4-20250514';
+const MAX_TOKENS         = 600;
 
 const SYSTEM_PROMPT = `You are the friendly, helpful AI assistant for H2H Electric LLC (also known as H2H Electrical), a licensed family-owned electrical contractor in Texas.
 
@@ -57,6 +58,72 @@ function setCors(res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+}
+
+/* ── Lead extraction helpers ─────────────────────────────────────────── */
+
+const PHONE_RE = /(?:\+?1[\s.-]?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}/;
+const EMAIL_RE = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i;
+const NAME_RE  = /(?:my name is|i'?m|i am|this is|soy|me llamo|mi nombre es)\s+([A-Za-zÀ-ÿ][A-Za-zÀ-ÿ' .-]{1,40}?)(?=[,.;!?\n]|\s+(?:and|y|from|de|here|aquí)\b|$)/i;
+const ADDRESS_RE = /\b\d{1,6}\s+[A-Za-z0-9.'\- ]{3,60}\b(?:\s+(?:st|street|ave|avenue|rd|road|blvd|boulevard|dr|drive|ln|lane|ct|court|way|hwy|highway|circle|cir|trl|trail|pkwy)\b\.?)/i;
+
+function extractLead(messages) {
+  const userTurns = messages.filter(m => m.role === 'user').map(m => m.content);
+  const joined    = userTurns.join('\n');
+
+  const phoneMatch   = joined.match(PHONE_RE);
+  const emailMatch   = joined.match(EMAIL_RE);
+  const nameMatch    = joined.match(NAME_RE);
+  const addressMatch = joined.match(ADDRESS_RE);
+
+  return {
+    phone:   phoneMatch ? phoneMatch[0].trim() : null,
+    email:   emailMatch ? emailMatch[0].trim() : null,
+    name:    nameMatch  ? nameMatch[1].trim() : null,
+    address: addressMatch ? addressMatch[0].trim() : null,
+    transcript: userTurns
+  };
+}
+
+function buildSummary(lead) {
+  const parts = [];
+  if (lead.address) parts.push(`Address: ${lead.address}`);
+  parts.push('--- Customer messages from chat ---');
+  for (const t of lead.transcript) parts.push(`• ${t}`);
+  return parts.join('\n').slice(0, 4000);
+}
+
+async function notifyLead(messages, reply) {
+  // Dedupe: if any prior assistant turn already said "Kevin will", we've sent it.
+  const alreadySent = messages.some(
+    m => m.role === 'assistant' && /kevin will/i.test(m.content)
+  );
+  if (alreadySent) return;
+
+  const lead = extractLead(messages);
+  if (!lead.phone) return;
+
+  const payload = {
+    _subject: 'New Chat Lead - H2H Electric',
+    name:     lead.name    || 'Not provided',
+    phone:    lead.phone,
+    email:    lead.email   || 'Not provided',
+    message:  buildSummary(lead),
+    source:   'AI Chat Widget'
+  };
+
+  try {
+    const resp = await fetch(FORMSPREE_ENDPOINT, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json', 'accept': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    if (!resp.ok) {
+      console.error('Formspree lead notify failed', resp.status, await resp.text().catch(() => ''));
+    }
+  } catch (err) {
+    console.error('Formspree lead notify error', err);
+  }
 }
 
 export default async function handler(req, res) {
@@ -125,11 +192,16 @@ export default async function handler(req, res) {
       .join('\n')
       .trim();
 
-    return res.status(200).json({
-      reply: reply || (lang === 'es'
-        ? 'Lo siento, no pude generar una respuesta. Por favor llame al (409) 739-2944.'
-        : "Sorry, I couldn't generate a response. Please call (409) 739-2944.")
-    });
+    const finalReply = reply || (lang === 'es'
+      ? 'Lo siento, no pude generar una respuesta. Por favor llame al (409) 739-2944.'
+      : "Sorry, I couldn't generate a response. Please call (409) 739-2944.");
+
+    // Best-effort lead notification — never blocks/breaks the chat reply.
+    await notifyLead(cleaned, finalReply).catch(err =>
+      console.error('notifyLead unexpected error', err)
+    );
+
+    return res.status(200).json({ reply: finalReply });
   } catch (err) {
     console.error('Chat handler error', err);
     return res.status(500).json({ error: 'Internal server error' });
