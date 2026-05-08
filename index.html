@@ -400,6 +400,51 @@
       text-align: center; color: rgba(255,255,255,0.4); font-size: 0.85rem;
     }
     footer a { color: var(--yellow); text-decoration: none; }
+    .footer-inner {
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
+      gap: 1rem 1.5rem; max-width: 1200px; margin: 0 auto;
+    }
+    .footer-inner p { margin: 0; }
+
+    /* ── REVIEW BUTTONS ── */
+    .review-btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: #1ba8a8; color: #ffffff;
+      padding: 0.7rem 1.1rem; border-radius: 100px;
+      font-family: 'DM Sans', sans-serif; font-weight: 700;
+      font-size: 0.85rem; letter-spacing: 0.03em;
+      text-decoration: none; white-space: nowrap;
+      border: 2px solid #1ba8a8;
+      transition: background 0.25s, border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+    }
+    .review-btn:hover {
+      background: var(--teal-dark); border-color: var(--teal-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(27,168,168,0.35);
+    }
+    .review-btn .icon { width: 16px; height: 16px; color: #ffffff; }
+
+    /* Floating review button — right side, sitting above the chat bubble */
+    .review-float {
+      position: fixed;
+      right: 1.5rem;
+      bottom: calc(1.5rem + 64px + 0.85rem);
+      z-index: 500;
+      box-shadow: 0 10px 28px rgba(27,168,168,0.45);
+    }
+
+    /* Footer review button */
+    .review-btn-footer {
+      padding: 0.55rem 0.95rem; font-size: 0.8rem;
+    }
+
+    /* Small inline review text link inside contact section */
+    .contact-review-link {
+      display: inline-block; margin-top: 0.4rem;
+      font-size: 0.78rem; color: var(--yellow); text-decoration: underline;
+      font-weight: 500; line-height: 1.4;
+    }
+    .contact-review-link:hover { color: var(--white); }
 
     /* ── CHAT WIDGET ── */
     .chat-bubble {
@@ -537,6 +582,13 @@
       .hero-stats { grid-template-columns: 1fr 1fr; }
       .chat-window { bottom: 5.5rem; right: 1rem; left: 1rem; width: auto; height: 70vh; }
       .chat-bubble { right: 1rem; bottom: 1rem; }
+      .review-float {
+        right: 1rem;
+        bottom: calc(1rem + 64px + 0.75rem);
+        padding: 0.6rem 0.95rem;
+        font-size: 0.78rem;
+      }
+      .review-float .icon { width: 14px; height: 14px; }
     }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
@@ -857,6 +909,13 @@
             <div class="contact-detail-item">
               <strong data-en="Phone" data-es="Teléfono">Phone</strong>
               <a href="tel:4097392944">(409) 739-2944</a>
+              <a href="https://g.page/r/CZ5yKZrj5B2cEAE/review"
+                 class="contact-review-link"
+                 target="_blank" rel="noopener"
+                 data-en="Happy with our service? Leave us a review"
+                 data-es="¿Contento con nuestro servicio? Déjenos una reseña">
+                Happy with our service? Leave us a review
+              </a>
             </div>
             <div class="contact-detail-item">
               <strong data-en="Email" data-es="Correo">Email</strong>
@@ -936,14 +995,36 @@
 
   <!-- FOOTER -->
   <footer>
-    <p>
-      <span data-en="© 2025 H2H Electrical · Licensed &amp; Insured · Friendswood, TX · "
-            data-es="© 2025 H2H Electrical · Licenciado y Asegurado · Friendswood, TX · ">
-        © 2025 H2H Electrical · Licensed &amp; Insured · Friendswood, TX ·
-      </span>
-      <a href="tel:4097392944">(409) 739-2944</a>
-    </p>
+    <div class="footer-inner">
+      <p>
+        <span data-en="© 2025 H2H Electrical · Licensed &amp; Insured · Friendswood, TX · "
+              data-es="© 2025 H2H Electrical · Licenciado y Asegurado · Friendswood, TX · ">
+          © 2025 H2H Electrical · Licensed &amp; Insured · Friendswood, TX ·
+        </span>
+        <a href="tel:4097392944">(409) 739-2944</a>
+      </p>
+      <a href="https://g.page/r/CZ5yKZrj5B2cEAE/review"
+         class="review-btn review-btn-footer"
+         target="_blank" rel="noopener"
+         aria-label="Leave us a Google review">
+        <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1L12 2Z"/>
+        </svg>
+        <span data-en="Leave Us a Review" data-es="Déjenos una Reseña">Leave Us a Review</span>
+      </a>
+    </div>
   </footer>
+
+  <!-- FLOATING REVIEW BUTTON -->
+  <a href="https://g.page/r/CZ5yKZrj5B2cEAE/review"
+     class="review-btn review-float"
+     target="_blank" rel="noopener"
+     aria-label="Leave us a Google review">
+    <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1L12 2Z"/>
+    </svg>
+    <span data-en="Leave Us a Review" data-es="Déjenos una Reseña">Leave Us a Review</span>
+  </a>
 
   <!-- CHAT WIDGET -->
   <button id="chat-bubble" class="chat-bubble" type="button"
